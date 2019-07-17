@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboards</title>
+  <script type="text/javascript" src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
+  <script type="text/javascript">
+  </script>
+
+  <!-- Bring in our bootstrap stylesheet -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="static/style.css">
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Volcanoes R Us</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="/data">Raw Data <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/geo">Geo Data</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboards">Visualizations</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+</head>
+
+<body>
+<br>
+<h1> Dashboards </h1>
+<hr>
+
+<script>
+  var vizDiv = document.getElementById('viz');
+  
+  var vizURL =
+    "https://public.tableau.com/views/Project2VisualizationsTriangle/VolcanoLocationPlot?:embed=y&:display_count=yes&publish=yes&:origin=viz_share_link";
+
+  var options = {
+
+    width: '1400px',
+
+    height: '1000px',
+
+    hideToolbar: true,
+
+    hideTabs: false,
+
+    onFirstInteractive: function () {
+
+      document.getElementById('sheetName').innerHTML = viz.getWorkbook().getActiveSheet().getName();
+
+    }
+
+  };
+
+  viz = new tableauSoftware.Viz(vizDiv, vizURL, options);
+
+
+  viz.addEventListener('tabswitch', function (event) {
+
+    document.getElementById('sheetName').innerHTML = event.getNewSheetName();
+
+  });
+
+
+
+  function switchView(sheetName) {
+
+    workbook = viz.getWorkbook();
+
+    workbook.activateSheetAsync(sheetName);
+
+  }
+</script>
+</body>
+
+</html>
